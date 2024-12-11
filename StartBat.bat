@@ -1,0 +1,2 @@
+start CaptureExportDrivers.bat
+start CaptureExportDriverApps.bat

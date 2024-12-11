@@ -1,0 +1,2 @@
+Intended to completely automate the process for capturing images and exporting it.
+Ideally all you have to do it run batch file as admin and it will capture image for both driver and driverapps and then it will export the images once each one finishes.
