@@ -1,2 +1,2 @@
-start CaptureExportDrivers.bat
+call CaptureExportDrivers.bat
 start CaptureExportDriverApps.bat

@@ -1,6 +1,6 @@
 # Parameters for automation
 param(
-    [string]$ImageFile = "tempDriversAppsUWP.wim",   # Default WIM file path
+    [string]$ImageFile = "tempDriverAppsUWP.wim",   # Default WIM file path
     [string]$CaptureDir = "C:\DriverApps",          # Directory to capture
     [string]$ModelName = (Get-CimInstance -ClassName Win32_ComputerSystem).Model, # Model name
     [string]$Date = (Get-Date -Format "yyyyMMdd") # Default to today's date
