@@ -1,28 +1,26 @@
 # Parameters for automation
 param(
-    [string]$ImageFile = "tempDriverAppsUWP.wim",   # Default WIM file path
+    [string]$TempFileName = "tempDriverAppsUWP.wim",   # WIM file name
     [string]$CaptureDir = "C:\DriverApps",          # Directory to capture
     [string]$ModelName = (Get-CimInstance -ClassName Win32_ComputerSystem).Model, # Model name
-    [string]$Date = (Get-Date -Format "yyyyMMdd"), # Default to today's date
-    [string]$sourceWimPath = "C:\windows\system32\tempDriverAppsUWP.wim",   # Source WIM file path
-    [string]$destinationWimPath = "C:\tempDriverAppsUWP.wim" 
+    [string]$CurrentDate = (Get-Date -Format "yyyyMMdd"), # Current date
+    [string]$MergedImageName = "$ModelName DriverApps $Date", # Merges model, drivers, and date
+    [string]$SourceWimPath = "C:\windows\system32\tempDriverAppsUWP.wim",   # Source WIM file path
+    [string]$DestinationWimPath = "C:\tempDriverAppsUWP.wim" #Final WIM file path
 )
 
-# Combine model name and date for the image name
-$imageName = "$ModelName DriverApps $Date"
-
-# Construct the DISM command
-$dismCommand = @(
+# Construct the DISM capture command
+$DismCommand = @(
     "/capture-image",
-    "/imagefile:`"$ImageFile`"",
+    "/imagefile:`"$TempFileName`"",
     "/capturedir:`"$CaptureDir`"",
-    "/name:`"$imageName`"",
+    "/name:`"$MergedImageName`"",
     "/compress:none"
 ) -join " "
 
-# Execute the command
-Write-Host "Running DISM command: $dismCommand"
-Start-Process -FilePath "dism.exe" -ArgumentList $dismCommand -NoNewWindow -Wait
+# Execute the capture command
+Write-Host "Running DISM command: $DismCommand"
+Start-Process -FilePath "dism.exe" -ArgumentList $DismCommand -NoNewWindow -Wait
 
 # Check for errors
 if ($LASTEXITCODE -eq 0) {
@@ -31,21 +29,18 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "DISM capture failed with exit code $LASTEXITCODE."
 }
 
-# Parameters for automation
-
-
-# Construct the DISM command
-$dismCommand = @(
+# Construct the DISM export command
+$DismCommand = @(
     "/export-image",
-    "/sourceimagefile:`"$sourceWimPath`"",
-    "/destinationimagefile:`"$destinationWimPath`"",
+    "/sourceimagefile:`"$SourceWimPath`"",
+    "/destinationimagefile:`"$DestinationWimPath`"",
     "/sourceindex:1",
     "/compress:recovery"
 ) -join " "
 
-# Execute the command
-Write-Host "Running DISM command: $dismCommand"
-Start-Process -FilePath "dism.exe" -ArgumentList $dismCommand -NoNewWindow -Wait
+# Execute the  export command
+Write-Host "Running DISM command: $DismCommand"
+Start-Process -FilePath "dism.exe" -ArgumentList $DismCommand -NoNewWindow -Wait
 
 # Check for errors
 if ($LASTEXITCODE -eq 0) {

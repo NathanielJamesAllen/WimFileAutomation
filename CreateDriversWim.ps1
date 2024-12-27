@@ -4,14 +4,10 @@ param(
     [string]$CaptureDir = "C:\Drivers",          # Directory to capture
     [string]$ModelName = (Get-CimInstance -ClassName Win32_ComputerSystem).Model, # Model name
     [string]$CurrentDate = (Get-Date -Format "yyyyMMdd"), # Current date
-    [string]$MergedImageName = "$ModelName Drivers $CurrentDate",
+    [string]$MergedImageName = "$ModelName Drivers $CurrentDate", # Merges model, drivers, and date
     [string]$SourceWimPath = "C:\windows\system32\tempDrivers.wim",   # Default WIM file path 
     [string]$DestinationWimPath = "C:\tempDrivers.wim" # Final WIM file path  
 )
-
-# Merges model, drivers, and date
-# Move to param maybe
-#$MergedImageName = "$ModelName Drivers $CurrentDate"
 
 # Construct the DISM capture command
 $DismCommand = @(
