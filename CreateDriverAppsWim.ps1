@@ -48,3 +48,5 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Host "DISM export failed with exit code $LASTEXITCODE."
 }
+
+Pause
