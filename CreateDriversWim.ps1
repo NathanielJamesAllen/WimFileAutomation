@@ -9,13 +9,23 @@ param(
     [string]$DestinationWimPath = "C:\tempDrivers.wim" # Final WIM file path  
 )
 
+#Create log folder if it doesn't exist
+$LogFolder = "C:\temp\Logs"
+if (!(Test-Path $LogFolder)) { New-Item -Path $LogFolder -ItemType Directory }
+
+$CaptureLog = "$LogFolder\DISM_Capture.log"
+$ExportLog  = "$LogFolder\DISM_Export.log"
+
 # Construct the DISM capture command
 $DismCommand = @(
     "/capture-image",
     "/imagefile:`"$TempFileName`"",
     "/capturedir:`"$CaptureDir`"",
     "/name:`"$MergedImageName`"",
-    "/compress:none"
+    "/compress:none",
+    "/LogPath:`"$CaptureLog`"",
+    "/LogLevel:4"
+
 ) -join " "
 
 # Execute the capture command
@@ -35,7 +45,10 @@ $DismCommand = @(
     "/sourceimagefile:`"$SourceWimPath`"",
     "/destinationimagefile:`"$DestinationWimPath`"",
     "/sourceindex:1",
-    "/compress:recovery"
+    "/compress:recovery",
+    "/LogPath:`"$ExportLog`"",
+    "/LogLevel:4"
+    
 ) -join " "
 
 # Execute the export command
