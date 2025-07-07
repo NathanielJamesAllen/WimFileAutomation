@@ -9,6 +9,9 @@ param(
     [string]$DestinationWimPath = "C:\tempDriverAppsUWP.wim" #Final WIM file path
 )
 
+$CaptureLog = "C:\temp\Logs\DISM_Capture_DriverApps.log"
+$ExportLog  = "C:\temp\Logs\DISM_Export_DriverApps.log"
+
 # Construct the DISM capture command
 $DismCommand = @(
     "/capture-image",
@@ -16,6 +19,8 @@ $DismCommand = @(
     "/capturedir:`"$CaptureDir`"",
     "/name:`"$MergedImageName`"",
     "/compress:none"
+    "/LogPath:`"$CaptureLog`"",
+    "/LogLevel:4"
 ) -join " "
 
 # Execute the capture command
@@ -36,6 +41,8 @@ $DismCommand = @(
     "/destinationimagefile:`"$DestinationWimPath`"",
     "/sourceindex:1",
     "/compress:recovery"
+    "/LogPath:`"$ExportLog`"",
+    "/LogLevel:4"
 ) -join " "
 
 # Execute the  export command

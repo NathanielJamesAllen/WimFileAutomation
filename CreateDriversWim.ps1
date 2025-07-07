@@ -13,8 +13,8 @@ param(
 $LogFolder = "C:\temp\Logs"
 if (!(Test-Path $LogFolder)) { New-Item -Path $LogFolder -ItemType Directory }
 
-$CaptureLog = "$LogFolder\DISM_Capture.log"
-$ExportLog  = "$LogFolder\DISM_Export.log"
+$CaptureLog = "$LogFolder\DISM_Capture_Drivers.log"
+$ExportLog  = "$LogFolder\DISM_Export_Drivers.log"
 
 # Construct the DISM capture command
 $DismCommand = @(
