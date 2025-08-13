@@ -6,7 +6,6 @@ Improvements
 3. use start/sleep instead of pause
 4. add a script that will automate msi exec command
 5. Link to html document where the code can be downloaded and instructions are included
-6. add part where if driverapps folder dne then run create dock wim
 7. add error checking ex.(if no file say no folder found)
 8. convert batch file to python
 
