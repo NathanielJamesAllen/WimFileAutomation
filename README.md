@@ -3,11 +3,11 @@ Automates the process for capturing an image and exporting it.
 
 Improvements
 1. Fix $LASTERRORCODE
-3. use start/sleep instead of pause
 4. add a script that will automate msi exec command
 5. Link to html document where the code can be downloaded and instructions are included
 7. add error checking ex.(if no file say no folder found)
 8. convert batch file to python
+9. add scripts to run only dock wim, driver wim, and driverapps wim
 
 Steps to create wim file:
 1. Plug in flash drive with script.
